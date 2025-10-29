@@ -1,0 +1,34 @@
+@startuml TrackingFlow
+title Sequence Diagram - Priority 2: Personalization and Progress Tracking
+
+actor "Student" as U
+actor "Teacher/Parent" as T
+participant "App UI" as UI
+participant "App Logic" as Logic
+participant "Scheduler" as Sch
+database "Cloud DB" as DB
+
+== Step 1: Save Progress ==
+Logic -> DB: Store daily learning record
+DB --> Logic: Confirm save
+
+== Step 2: Teacher Views Report ==
+T -> UI: Open dashboard
+UI -> DB: Request student progress
+DB --> UI: Return report (mistaken words, quiz errors, focus time)
+UI -> T: Display charts and stats
+
+== Step 3: Adjust Difficulty ==
+T -> UI: Choose difficulty (Easy / Standard / Advanced)
+UI -> Logic: Update configuration
+Logic -> DB: Save difficulty setting
+
+== Step 4: Daily Mission ==
+Sch -> Logic: Create daily mission
+Logic -> DB: Get recent lessons
+DB --> Logic: Return passage and key words
+Logic -> UI: Notify student
+U -> UI: Start quick practice (Listen → Repeat → Quiz)
+Logic -> DB: Update streak record (e.g. 3 consecutive days)
+
+@enduml

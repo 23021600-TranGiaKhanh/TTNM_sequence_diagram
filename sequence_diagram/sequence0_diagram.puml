@@ -1,0 +1,57 @@
+@startuml CoreFlow
+title Sequence Diagram - Priority 0: Core Learning Flow
+
+actor "Student" as U
+participant "App UI" as UI
+participant "App Logic" as Logic
+participant "TTS Engine" as TTS
+participant "Speech Recognition" as SR
+database "Local DB" as DB
+
+== Step 0: Select Lesson ==
+U -> UI: Choose Subject → Lesson ("Water and its Cycle")
+UI -> Logic: Request lesson content
+Logic -> DB: Fetch textbook data
+DB --> Logic: Return segmented text
+Logic --> UI: Display text and illustration
+
+== Step 1: Listen and Follow ==
+U -> UI: Click "Listen to teacher"
+UI -> Logic: Request reading
+Logic -> TTS: Send text to be read
+TTS --> Logic: Return audio stream
+Logic -> UI: Play audio + highlight words
+U -> UI: Adjust reading speed (0.7x – 1.3x)
+U -> UI: Tap a difficult word
+UI -> Logic: Request replay for that word
+Logic -> TTS: Send single word
+TTS --> Logic: Return word audio
+Logic -> UI: Replay slow pronunciation
+
+== Step 2: Practice Reading ==
+Logic -> UI: Prompt "Try reading this sentence."
+U -> UI: Press mic and read aloud
+UI -> SR: Send student’s voice
+SR --> Logic: Return recognition result
+Logic -> UI: Feedback "8/10 words correct; retry 'evaporate'"
+U -> UI: Choose "Retry difficult word"
+UI -> Logic: Request pronunciation model
+Logic -> TTS: Send sample word
+TTS --> Logic: Return sample audio
+Logic -> UI: Play word slowly for repetition
+
+== Step 3: Mini Quiz ==
+Logic -> UI: Show question
+UI -> TTS: Request to read aloud question
+TTS --> UI: Return audio question
+U -> UI: Select answer (Yes / No)
+UI -> Logic: Send selected answer
+Logic -> UI: Show feedback (correct / incorrect + reward)
+UI -> TTS: Speak praise "Good job! You earned 5 stars."
+
+== Step 4: Summary ==
+Logic -> DB: Save learning result
+Logic -> UI: Display summary (listened, read, quiz)
+UI -> TTS: Speak praise "You are a Water Explorer Level 1!"
+
+@enduml

@@ -1,0 +1,37 @@
+@startuml VocabularyFlow
+title Sequence Diagram - Priority 1: Vocabulary and Comprehension
+
+actor "Student" as U
+participant "App UI" as UI
+participant "App Logic" as Logic
+participant "AI/NLP Module" as NLP
+participant "TTS Engine" as TTS
+database "Local DB" as DB
+
+== Step 1: Highlight Difficult Words ==
+UI -> Logic: Send textbook text
+Logic -> NLP: Detect difficult words
+NLP --> Logic: Return word list + meanings
+Logic -> UI: Display highlighted words
+U -> UI: Tap word "condense"
+UI -> Logic: Request meaning + pronunciation
+Logic -> TTS: Send word for pronunciation
+TTS --> Logic: Return audio
+Logic -> UI: Show popup with meaning and image
+
+== Step 2: Vocabulary Flashcards ==
+Logic -> DB: Save today's learned words
+U -> UI: Open "Today's Vocabulary Bag"
+UI -> Logic: Load word list
+Logic -> TTS: Play word audio
+U -> UI: Student repeats word
+UI -> Logic: Send recording
+Logic -> UI: Feedback "Good! You said 'condense' clearly."
+
+== Step 3: Lesson Summary ==
+Logic -> NLP: Generate short summary
+NLP --> Logic: Return 3 key sentences
+Logic -> UI: Display summary
+UI -> TTS: Read summary slowly
+
+@enduml
