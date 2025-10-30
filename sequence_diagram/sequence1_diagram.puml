@@ -20,13 +20,23 @@ TTS --> Logic: Return audio
 Logic -> UI: Show popup with meaning and image
 
 == Step 2: Vocabulary Flashcards ==
-Logic -> DB: Save today's learned words
+
 U -> UI: Open "Today's Vocabulary Bag"
-UI -> Logic: Load word list
-Logic -> TTS: Play word audio
-U -> UI: Student repeats word
-UI -> Logic: Send recording
+UI -> Logic: Request today's vocabulary
+Logic -> DB: Fetch word list
+DB --> Logic: Return list of words
+Logic --> UI: Display flashcards (word + image + buttons)
+
+U -> UI: Tap "Listen"
+UI -> TTS: Request word audio
+TTS --> UI: Play audio sample
+
+U -> UI: Tap "Read aloud"
+UI -> SR: Send student's voice
+SR --> Logic: Return recognition result
 Logic -> UI: Feedback "Good! You said 'condense' clearly."
+
+Logic -> DB: Save learned words and performance
 
 == Step 3: Lesson Summary ==
 Logic -> NLP: Generate short summary
