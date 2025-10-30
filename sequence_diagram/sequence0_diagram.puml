@@ -6,7 +6,7 @@ participant "App UI" as UI
 participant "App Logic" as Logic
 participant "TTS Engine" as TTS
 participant "Speech Recognition" as SR
-database "Local DB" as DB
+database "Cloud DB" as DB
 
 == Step 0: Select Lesson ==
 U -> UI: Choose Subject → Lesson ("Water and its Cycle")

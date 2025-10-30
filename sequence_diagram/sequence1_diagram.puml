@@ -6,7 +6,8 @@ participant "App UI" as UI
 participant "App Logic" as Logic
 participant "AI/NLP Module" as NLP
 participant "TTS Engine" as TTS
-database "Local DB" as DB
+participant "Speech Recognition" as SR
+database "Cloud DB" as DB
 
 == Step 1: Highlight Difficult Words ==
 UI -> Logic: Send textbook text

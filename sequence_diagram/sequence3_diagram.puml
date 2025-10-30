@@ -6,7 +6,7 @@ actor "Admin" as A
 participant "App UI" as UI
 participant "App Logic" as Logic
 participant "AI/OCR Module" as AI
-database "Content DB" as DB
+database "Cloud DB" as DB
 collections "Public Library" as LIB
 
 == Step 1: Upload Material ==

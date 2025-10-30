@@ -1,33 +1,40 @@
 @startuml TrackingFlow
 title Sequence Diagram - Priority 2: Personalization and Progress Tracking
 
-actor "Student" as U
-actor "Teacher/Parent" as T
+actor "User" as U
 participant "App UI" as UI
 participant "App Logic" as Logic
 participant "Scheduler" as Sch
 database "Cloud DB" as DB
 
-== Step 1: Save Progress ==
-Logic -> DB: Store daily learning record
+== Step 1: Upload Personal Book ==
+U -> UI: Upload personal PDF / image
+UI -> Logic: Send file for OCR + NLP processing
+Logic -> DB: Save extracted text and metadata
+Logic --> UI: Display ready-to-read book with copyright notice
+
+== Step 2: Save Progress ==
+Logic -> DB: Store daily learning record (listened, read, quiz)
 DB --> Logic: Confirm save
+Logic --> UI: Update user's progress timeline
 
-== Step 2: Teacher Views Report ==
-T -> UI: Open dashboard
-UI -> DB: Request student progress
-DB --> UI: Return report (mistaken words, quiz errors, focus time)
-UI -> T: Display charts and stats
+== Step 3: View Personal Report ==
+U -> UI: Open dashboard
+UI -> Logic: Request progress summary
+Logic -> DB: Fetch performance metrics
+DB --> Logic: Return report (mistaken words, quiz errors, focus time)
+Logic --> UI: Display charts and feedback summary
 
-== Step 3: Adjust Difficulty ==
-T -> UI: Choose difficulty (Easy / Standard / Advanced)
+== Step 4: Adjust Difficulty ==
+U -> UI: Choose difficulty (Easy / Standard / Advanced)
 UI -> Logic: Update configuration
 Logic -> DB: Save difficulty setting
 
-== Step 4: Daily Mission ==
-Sch -> Logic: Create daily mission
-Logic -> DB: Get recent lessons
-DB --> Logic: Return passage and key words
-Logic -> UI: Notify student
+== Step 5: Daily Mission ==
+Sch -> Logic: Generate daily mission
+Logic -> DB: Retrieve recent lessons and key words
+DB --> Logic: Return passage and vocabulary
+Logic -> UI: Notify user of new mission
 U -> UI: Start quick practice (Listen → Repeat → Quiz)
 Logic -> DB: Update streak record (e.g. 3 consecutive days)
 
