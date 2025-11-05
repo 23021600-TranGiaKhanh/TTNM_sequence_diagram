@@ -1,7 +1,7 @@
 @startuml VocabularyFlow
 title Sequence Diagram - Priority 1: Vocabulary and Comprehension
 
-actor "Student" as U
+actor "User" as U
 participant "App UI" as UI
 participant "App Logic" as Logic
 participant "AI/NLP Module" as NLP

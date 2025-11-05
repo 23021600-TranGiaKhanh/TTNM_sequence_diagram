@@ -1,7 +1,7 @@
 @startuml ContentFlow
 title Sequence Diagram - Priority 3: Content Moderation and Public Library
 
-actor "Teacher" as T
+actor "User" as U
 actor "Admin" as A
 participant "App UI" as UI
 participant "App Logic" as Logic
@@ -10,7 +10,7 @@ database "Cloud DB" as DB
 collections "Public Library" as LIB
 
 == Step 1: Upload Material ==
-T -> UI: Upload PDF or image
+U -> UI: Upload PDF or image
 UI -> Logic: Receive file
 Logic -> AI: OCR + split text + create quiz
 AI --> Logic: Return processed content
@@ -18,7 +18,7 @@ Logic -> UI: Show preview
 Logic -> DB: Mark as "Pending Review"
 
 == Step 2: Review and Approve ==
-A -> UI: Open review dashboard
+A -> UI: Open admin dashboard
 UI -> DB: Fetch pending items
 DB --> UI: Return preview data
 A -> UI: Review text, audio, quiz

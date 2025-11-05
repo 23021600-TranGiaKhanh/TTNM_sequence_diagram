@@ -1,7 +1,7 @@
 @startuml CoreFlow
 title Sequence Diagram - Priority 0: Core Learning Flow
 
-actor "Student" as U
+actor "User" as U
 participant "App UI" as UI
 participant "App Logic" as Logic
 participant "TTS Engine" as TTS
